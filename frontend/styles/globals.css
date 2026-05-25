@@ -52,7 +52,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-display font-600
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-display font-semibold
            bg-brand-yellow text-brand-black text-sm font-semibold tracking-wide
            hover:bg-brand-yellow-light transition-all duration-200
            active:scale-95 cursor-pointer select-none;
