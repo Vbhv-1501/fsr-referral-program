@@ -1,0 +1,31 @@
+# render.yaml — Free backend hosting on Render.com
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: fsr-referral-backend
+    env: node
+    region: singapore        # Closest free region to India
+    plan: free               # 100% free — 750 hrs/month
+    rootDir: backend         # Only the backend folder
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000          # Render assigns this port automatically
+      - key: DATABASE_URL
+        sync: false           # You paste this manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHANNEL_ID
+        sync: false
+      - key: ADMIN_TELEGRAM_IDS
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
