@@ -5,11 +5,6 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["bom1"],
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@fsr_api_url",
-    "NEXT_PUBLIC_BOT_NAME": "@fsr_bot_name",
-    "NEXT_PUBLIC_ADMIN_TELEGRAM_IDS": "@fsr_admin_ids"
-  },
   "headers": [
     {
       "source": "/(.*)",
@@ -18,18 +13,6 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "/api/sitemap"
     }
   ]
 }
