@@ -1,0 +1,87 @@
+version: '3.9'
+
+services:
+  # ─── PostgreSQL ─────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: fsr_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fsr_referral_db
+      POSTGRES_USER: fsr_user
+      POSTGRES_PASSWORD: fsr_password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U fsr_user -d fsr_referral_db']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis (optional, for rate limiting) ────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: fsr_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+
+  # ─── Backend ────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fsr_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DATABASE_URL: postgresql://fsr_user:fsr_password@postgres:5432/fsr_referral_db
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_jwt_secret_min_32_chars_replace_in_prod
+      BOT_TOKEN: ${BOT_TOKEN}
+      TELEGRAM_CHANNEL_ID: ${TELEGRAM_CHANNEL_ID}
+      ADMIN_TELEGRAM_IDS: ${ADMIN_TELEGRAM_IDS}
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+
+  # ─── Frontend ───────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fsr_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:4000/api
+      NEXT_PUBLIC_BOT_NAME: ${BOT_NAME}
+      NEXT_PUBLIC_ADMIN_TELEGRAM_IDS: ${ADMIN_TELEGRAM_IDS}
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:
