@@ -25,9 +25,10 @@
   }
 
   body {
-    @apply bg-brand-black text-brand-white font-body;
-    background-image:
-      radial-gradient(ellipse 100% 50% at 50% -5%, rgba(230, 184, 0, 0.08), transparent);
+    background-color: #0A0A0A;
+    color: #FAFAFA;
+    font-family: 'DM Sans', sans-serif;
+    background-image: radial-gradient(ellipse 100% 50% at 50% -5%, rgba(230, 184, 0, 0.08), transparent);
   }
 
   ::selection {
@@ -35,71 +36,96 @@
     color: #fff;
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #111;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--yellow);
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #E6B800; }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-display font-semibold
-           bg-brand-yellow text-brand-black text-sm font-semibold tracking-wide
-           hover:bg-brand-yellow-light transition-all duration-200
-           active:scale-95 cursor-pointer select-none;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200 active:scale-95 cursor-pointer select-none;
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #E6B800;
+    color: #0A0A0A;
     box-shadow: 0 0 0 0 rgba(230, 184, 0, 0);
   }
   .btn-primary:hover {
+    background-color: #FFD700;
     box-shadow: 0 4px 20px rgba(230, 184, 0, 0.35);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-display font-semibold
-           bg-transparent text-brand-white text-sm tracking-wide border border-brand-border
-           hover:border-brand-yellow hover:text-brand-yellow transition-all duration-200
-           active:scale-95 cursor-pointer select-none;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200 active:scale-95 cursor-pointer select-none bg-transparent;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #FAFAFA;
+    border: 1px solid #222222;
+  }
+  .btn-secondary:hover {
+    border-color: #E6B800;
+    color: #E6B800;
   }
 
   .card {
-    @apply rounded-2xl border border-brand-border bg-brand-black-card p-6;
+    @apply rounded-2xl p-6;
+    border: 1px solid #222222;
+    background-color: #161616;
     background-image: linear-gradient(135deg, rgba(230,184,0,0.04) 0%, transparent 50%);
   }
 
   .card-glow {
-    @apply card;
+    @apply rounded-2xl p-6;
+    border: 1px solid #222222;
+    background-color: #161616;
+    background-image: linear-gradient(135deg, rgba(230,184,0,0.04) 0%, transparent 50%);
     box-shadow: 0 0 0 1px rgba(230, 184, 0, 0.1), 0 8px 32px rgba(0,0,0,0.4);
   }
 
   .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-brand-white leading-tight;
+    @apply text-3xl md:text-4xl font-bold leading-tight;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #FAFAFA;
   }
 
   .section-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold
-           border border-brand-yellow/30 bg-brand-yellow/10 text-brand-yellow mb-4;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(230, 184, 0, 0.3);
+    background-color: rgba(230, 184, 0, 0.1);
+    color: #E6B800;
   }
 
   .stat-number {
-    @apply font-display text-4xl md:text-5xl font-bold text-brand-yellow tabular-nums;
+    @apply text-4xl md:text-5xl font-bold tabular-nums;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #E6B800;
   }
 
   .rank-badge {
-    @apply inline-flex items-center justify-center w-8 h-8 rounded-full font-display font-bold text-sm;
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
-  .rank-badge-gold   { @apply bg-yellow-400/20 text-yellow-400 border border-yellow-400/30; }
-  .rank-badge-silver { @apply bg-gray-300/20 text-gray-300 border border-gray-300/30; }
-  .rank-badge-bronze { @apply bg-orange-600/20 text-orange-400 border border-orange-600/30; }
-  .rank-badge-other  { @apply bg-white/5 text-brand-white-muted border border-brand-border; }
+  .rank-badge-gold {
+    background-color: rgba(250, 204, 21, 0.2);
+    color: #facc15;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+  }
+  .rank-badge-silver {
+    background-color: rgba(209, 213, 219, 0.2);
+    color: #d1d5db;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+  }
+  .rank-badge-bronze {
+    background-color: rgba(234, 88, 12, 0.2);
+    color: #fb923c;
+    border: 1px solid rgba(234, 88, 12, 0.3);
+  }
+  .rank-badge-other {
+    background-color: rgba(255,255,255,0.05);
+    color: #A0A0A0;
+    border: 1px solid #222222;
+  }
 
   .shimmer-line {
     background: linear-gradient(90deg, #222 25%, #2a2a2a 50%, #222 75%);
@@ -108,20 +134,49 @@
   }
 
   .nav-link {
-    @apply text-sm font-body text-brand-white-muted hover:text-brand-white transition-colors duration-150;
+    @apply text-sm transition-colors duration-150;
+    font-family: 'DM Sans', sans-serif;
+    color: #A0A0A0;
+  }
+  .nav-link:hover {
+    color: #FAFAFA;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl bg-brand-black-soft border border-brand-border
-           text-brand-white placeholder-brand-white-muted text-sm
-           focus:outline-none focus:border-brand-yellow/50 focus:ring-1 focus:ring-brand-yellow/30
-           transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-xl text-sm transition-all duration-200;
+    background-color: #111111;
+    border: 1px solid #222222;
+    color: #FAFAFA;
+  }
+  .input-field::placeholder {
+    color: #A0A0A0;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: rgba(230, 184, 0, 0.5);
+    box-shadow: 0 0 0 1px rgba(230, 184, 0, 0.3);
   }
 
-  .status-valid   { @apply text-green-400 bg-green-400/10 border border-green-400/20; }
-  .status-pending { @apply text-yellow-400 bg-yellow-400/10 border border-yellow-400/20; }
-  .status-rejected{ @apply text-red-400 bg-red-400/10 border border-red-400/20; }
-  .status-fraud   { @apply text-red-600 bg-red-600/10 border border-red-600/20; }
+  .status-valid {
+    color: #4ade80;
+    background-color: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+  }
+  .status-pending {
+    color: #facc15;
+    background-color: rgba(250, 204, 21, 0.1);
+    border: 1px solid rgba(250, 204, 21, 0.2);
+  }
+  .status-rejected {
+    color: #f87171;
+    background-color: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+  }
+  .status-fraud {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
 }
 
 /* Noise texture overlay */
@@ -135,7 +190,7 @@ body::before {
   opacity: 0.4;
 }
 
-/* Glow line at top of page */
+/* Glow line at top */
 body::after {
   content: '';
   position: fixed;
